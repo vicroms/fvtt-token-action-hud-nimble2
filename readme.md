@@ -5,7 +5,7 @@ A FoundryVTT module that provides a Token Action HUD for the Nimble RPG system.
 ## Requirements
 
 - FoundryVTT v13
-- [Nimble RPG System](https://github.com/FoundryVTT-Nimble) v0.8.0+
+- [Nimble RPG System](https://github.com/vicroms/FoundryVTT-Nimble) v0.8.0+
 - [Token Action HUD Core](https://github.com/Larkinabout/fvtt-token-action-hud-core) v2.0+
 
 ## Features

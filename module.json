@@ -4,10 +4,11 @@
   "description": "Token Action HUD is a repositionable HUD of actions for a selected token.",
   "authors": [
     {
-      "name": "Nimble TAH Contributors"
+      "name": "vicroms",
+      "url": "https://github.com/vicroms"
     }
   ],
-  "url": "",
+  "url": "https://github.com/vicroms/fvtt-token-action-hud-nimble2",
   "flags": {},
   "version": "0.1.0",
   "compatibility": {
