@@ -9,6 +9,8 @@
 	"tokenActionHud.nimble.inventory": "Inventory",
 	"tokenActionHud.nimble.features": "Features",
 	"tokenActionHud.nimble.monsterFeatures": "Monster Features",
+	"tokenActionHud.nimble.heroicActions": "Heroic Actions",
+	"tokenActionHud.nimble.heroicReactions": "Heroic Reactions",
 	"tokenActionHud.nimble.initiative": "Initiative",
 	"tokenActionHud.nimble.inspiration": "Inspiration",
 	"tokenActionHud.nimble.mana": "Mana",

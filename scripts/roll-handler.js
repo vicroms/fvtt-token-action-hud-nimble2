@@ -65,6 +65,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				case 'monsterFeature':
 					await this.#handleMonsterFeatureAction(event, actor, actionId)
 					break
+				case 'heroicAction':
+					await this.#handleHeroicAction(actor, actionId)
+					break
+				case 'heroicReaction':
+					await this.#handleHeroicReaction(actor, actionId)
+					break
 				case 'utility':
 					await this.#handleUtilityAction(event, actor, actionId)
 					break
@@ -130,6 +136,32 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				fastForward: event.shiftKey,
 				visibilityMode: hideFeatures ? 'selfroll' : undefined
 			})
+		}
+
+		/**
+		 * Handle heroic action
+		 * @private
+		 * @param {object} actor    The actor
+		 * @param {string} actionId The heroic action ID (attack, castSpell, move, assess)
+		 */
+		async #handleHeroicAction(actor, actionId) {
+			const macro = CONFIG.NIMBLE?.macros?.activateHeroicActionMacro
+			if (typeof macro === 'function') {
+				await macro(actionId, 'action')
+			}
+		}
+
+		/**
+		 * Handle heroic reaction
+		 * @private
+		 * @param {object} actor    The actor
+		 * @param {string} actionId The heroic reaction ID (defend, interpose, opportunityAttack, help)
+		 */
+		async #handleHeroicReaction(actor, actionId) {
+			const macro = CONFIG.NIMBLE?.macros?.activateHeroicActionMacro
+			if (typeof macro === 'function') {
+				await macro(actionId, 'reaction')
+			}
 		}
 
 		/**

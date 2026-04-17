@@ -42,6 +42,8 @@ export const GROUP = {
 	spells: { id: 'spells', name: 'tokenActionHud.nimble.spells', type: 'system' },
 	inventory: { id: 'inventory', name: 'tokenActionHud.nimble.inventory', type: 'system' },
 	features: { id: 'features', name: 'tokenActionHud.nimble.features', type: 'system' },
+	heroicActions: { id: 'heroicActions', name: 'tokenActionHud.nimble.heroicActions', type: 'system' },
+	heroicReactions: { id: 'heroicReactions', name: 'tokenActionHud.nimble.heroicReactions', type: 'system' },
 	monsterFeatures: { id: 'monsterFeatures', name: 'tokenActionHud.nimble.monsterFeatures', type: 'system' },
 	utility: { id: 'utility', name: 'tokenActionHud.utility', type: 'system' }
 }

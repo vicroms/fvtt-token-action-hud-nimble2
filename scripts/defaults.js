@@ -65,6 +65,22 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				]
 			},
 			{
+				nestId: 'heroicActions',
+				id: 'heroicActions',
+				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.heroicActions'),
+				groups: [
+					{ ...groups.heroicActions, nestId: 'heroicActions_heroicActions' }
+				]
+			},
+			{
+				nestId: 'heroicReactions',
+				id: 'heroicReactions',
+				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.heroicReactions'),
+				groups: [
+					{ ...groups.heroicReactions, nestId: 'heroicReactions_heroicReactions' }
+				]
+			},
+			{
 				nestId: 'monsterFeatures',
 				id: 'monsterFeatures',
 				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.monsterFeatures'),

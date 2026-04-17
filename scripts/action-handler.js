@@ -66,6 +66,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				this.#buildSpells(),
 				this.#buildInventory(),
 				this.#buildFeatures(),
+				this.#buildHeroicActions(),
+				this.#buildHeroicReactions(),
 				this.#buildUtility()
 			])
 		}
@@ -365,6 +367,50 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				this.addGroup(subtypeGroupData, GROUP.monsterFeatures)
 				this.addActions(actions, subtypeGroupData)
 			}
+		}
+
+		/**
+		 * Build heroic action buttons (Attack, Cast Spell, Move, Assess)
+		 * @private
+		 */
+		async #buildHeroicActions() {
+			const actionType = 'heroicAction'
+			const heroicActions = [
+				{ id: 'attack', labelKey: 'NIMBLE.ui.heroicActions.actions.attack.label' },
+				{ id: 'castSpell', labelKey: 'NIMBLE.ui.heroicActions.actions.spell.label' },
+				{ id: 'move', labelKey: 'NIMBLE.ui.heroicActions.actions.move.label' },
+				{ id: 'assess', labelKey: 'NIMBLE.ui.heroicActions.actions.assess.label' }
+			]
+
+			const actions = heroicActions.map((ha) => ({
+				id: `${actionType}-${ha.id}`,
+				name: coreModule.api.Utils.i18n(ha.labelKey),
+				system: { actionType, actionId: ha.id }
+			}))
+
+			this.addActions(actions, GROUP.heroicActions)
+		}
+
+		/**
+		 * Build heroic reaction buttons (Defend, Interpose, Opportunity Attack, Help)
+		 * @private
+		 */
+		async #buildHeroicReactions() {
+			const actionType = 'heroicReaction'
+			const heroicReactions = [
+				{ id: 'defend', labelKey: 'NIMBLE.ui.heroicActions.reactionLabels.defend' },
+				{ id: 'interpose', labelKey: 'NIMBLE.ui.heroicActions.reactionLabels.interpose' },
+				{ id: 'opportunityAttack', labelKey: 'NIMBLE.ui.heroicActions.reactionLabels.opportunityAttack' },
+				{ id: 'help', labelKey: 'NIMBLE.ui.heroicActions.reactionLabels.help' }
+			]
+
+			const actions = heroicReactions.map((hr) => ({
+				id: `${actionType}-${hr.id}`,
+				name: coreModule.api.Utils.i18n(hr.labelKey),
+				system: { actionType, actionId: hr.id }
+			}))
+
+			this.addActions(actions, GROUP.heroicReactions)
 		}
 
 		/**
