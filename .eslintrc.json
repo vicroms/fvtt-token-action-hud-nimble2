@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["warn", "never"],
+    "no-unused-vars": "warn"
+  }
+}

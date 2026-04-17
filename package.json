@@ -1,0 +1,17 @@
+{
+  "name": "fvtt-token-action-hud-nimble2",
+  "version": "0.1.0",
+  "description": "Token Action HUD system module for the Nimble RPG system",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -wcm",
+    "lint": "eslint scripts/*.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-multi-entry": "^6.0.0",
+    "eslint": "^8.57.1",
+    "rollup": "^2.56.3",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}

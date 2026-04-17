@@ -1,0 +1,61 @@
+{
+  "id": "token-action-hud-nimble2",
+  "title": "Token Action HUD Nimble",
+  "description": "Token Action HUD is a repositionable HUD of actions for a selected token.",
+  "authors": [
+    {
+      "name": "Nimble TAH Contributors"
+    }
+  ],
+  "url": "",
+  "flags": {},
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": ["./scripts/token-action-hud-nimble2.min.js"],
+  "scripts": [],
+  "styles": [
+    "./styles/tah-nimble.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
+  ],
+  "packs": [],
+  "relationships": {
+    "systems": [
+      {
+        "id": "nimble",
+        "type": "system",
+        "compatibility": {
+          "minimum": "0.8.0",
+          "verified": "0.8.2"
+        }
+      }
+    ],
+    "requires": [
+      {
+        "id": "token-action-hud-core",
+        "type": "module",
+        "compatibility": {
+          "minimum": "2.0",
+          "maximum": "2.0.99",
+          "verified": "2.0.11"
+        }
+      }
+    ],
+    "optional": [],
+    "flags": {
+      "optional": []
+    }
+  },
+  "socket": false,
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
+}

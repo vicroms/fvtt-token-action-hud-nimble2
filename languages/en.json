@@ -1,0 +1,20 @@
+{
+	"tokenActionHud.nimble.abilities": "Abilities",
+	"tokenActionHud.nimble.abilityCheck": "Ability Check",
+	"tokenActionHud.nimble.savingThrows": "Saving Throws",
+	"tokenActionHud.nimble.savingThrow": "Saving Throw",
+	"tokenActionHud.nimble.skills": "Skills",
+	"tokenActionHud.nimble.skill": "Skill",
+	"tokenActionHud.nimble.monsterFeatures": "Monster Features",
+	"tokenActionHud.nimble.initiative": "Initiative",
+	"tokenActionHud.nimble.inspiration": "Inspiration",
+	"tokenActionHud.nimble.mana": "Mana",
+	"tokenActionHud.nimble.setting.hideMonsterFeatures.name": "Hide Monster Features from Players",
+	"tokenActionHud.nimble.setting.hideMonsterFeatures.hint": "If unchecked, monster features will be posted publicly to the chat when used from the HUD",
+	"tokenActionHud.nimble.setting.showSpellTiers.name": "Show Spell Tiers",
+	"tokenActionHud.nimble.setting.showSpellTiers.hint": "Show tier labels next to spell actions",
+	"tokenActionHud.nimble.setting.showUnequippedItems.name": "Show Unequipped Items",
+	"tokenActionHud.nimble.setting.showUnequippedItems.hint": "Show unequipped items in the inventory group",
+	"tokenActionHud.nimble.setting.showItemQuantity.name": "Show Item Quantity",
+	"tokenActionHud.nimble.setting.showItemQuantity.hint": "Show item quantity for stackable items"
+}
