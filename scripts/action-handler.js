@@ -39,7 +39,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			this.showSpellTiers = Utils.getSetting('showSpellTiers')
 
 			if (this.actor) {
-				let items = Array.from(this.actor?.items)
+				let items = Array.from(this.actor.items.values())
 				items = coreModule.api.Utils.sortItemsByName(items)
 				this.items = items
 			}
