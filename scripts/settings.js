@@ -39,6 +39,22 @@ export function register(coreUpdate) {
 		}
 	})
 
+	game.settings.register(MODULE.ID, 'showUnequippedWeapons', {
+		name: game.i18n.localize(
+			'tokenActionHud.nimble.setting.showUnequippedWeapons.name'
+		),
+		hint: game.i18n.localize(
+			'tokenActionHud.nimble.setting.showUnequippedWeapons.hint'
+		),
+		scope: 'client',
+		config: true,
+		type: Boolean,
+		default: false,
+		onChange: (value) => {
+			coreUpdate(value)
+		}
+	})
+
 	game.settings.register(MODULE.ID, 'showUnequippedItems', {
 		name: game.i18n.localize(
 			'tokenActionHud.nimble.setting.showUnequippedItems.name'

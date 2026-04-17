@@ -91,6 +91,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
 			// Settings
 			this.showUnequippedItems = Utils.getSetting('showUnequippedItems')
+			this.showUnequippedWeapons = Utils.getSetting('showUnequippedWeapons')
 			this.showItemQuantity = Utils.getSetting('showItemQuantity')
 			this.showSpellTiers = Utils.getSetting('showSpellTiers')
 
@@ -189,7 +190,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
 			// Weapons
 			const weapons = this.actorItems.filter((item) =>
-				item.type === 'object' && item.system?.objectType === 'weapon' && item.system?.equipped !== false
+				item.type === 'object' && item.system?.objectType === 'weapon'
+				&& (this.showUnequippedWeapons || item.system?.equipped !== false)
 			)
 			if (weapons.length > 0) {
 				const weaponGroupData = {
