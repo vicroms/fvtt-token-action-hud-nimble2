@@ -15,7 +15,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		actorType = null
 
 		// Initialize items variable
-		items = null
+		actorItems = null
 
 		// Initialize group variables
 		groupIds = null
@@ -41,7 +41,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			if (this.actor) {
 				let items = Array.from(this.actor.items.values())
 				items = coreModule.api.Utils.sortItemsByName(items)
-				this.items = items
+				this.actorItems = items
 			}
 
 			this.groupIds = groupIds
@@ -189,9 +189,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @private
 		 */
 		async #buildSpells() {
-			if (!this.items) return
+			if (!this.actorItems) return
 
-			const spells = this.items.filter((item) => item.type === 'spell')
+			const spells = this.actorItems.filter((item) => item.type === 'spell')
 			if (spells.length === 0) return
 
 			const actionType = 'spell'
@@ -237,9 +237,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @private
 		 */
 		async #buildNPCSpells() {
-			if (!this.items) return
+			if (!this.actorItems) return
 
-			const spells = this.items.filter((item) => item.type === 'spell')
+			const spells = this.actorItems.filter((item) => item.type === 'spell')
 			if (spells.length === 0) return
 
 			const actionType = 'spell'
@@ -257,9 +257,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @private
 		 */
 		async #buildInventory() {
-			if (!this.items) return
+			if (!this.actorItems) return
 
-			const objects = this.items.filter((item) => {
+			const objects = this.actorItems.filter((item) => {
 				if (item.type !== 'object') return false
 				if (!this.showUnequippedItems && item.system?.equipped === false) return false
 				return true
@@ -294,10 +294,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @private
 		 */
 		async #buildFeatures() {
-			if (!this.items) return
+			if (!this.actorItems) return
 
 			const featureItemTypes = ['feature', 'ancestry', 'background', 'boon', 'class', 'subclass']
-			const features = this.items.filter((item) => featureItemTypes.includes(item.type))
+			const features = this.actorItems.filter((item) => featureItemTypes.includes(item.type))
 			if (features.length === 0) return
 
 			const actionType = 'feature'
@@ -316,9 +316,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @private
 		 */
 		async #buildMonsterFeatures() {
-			if (!this.items) return
+			if (!this.actorItems) return
 
-			const monsterFeatures = this.items.filter((item) => item.type === 'monsterFeature')
+			const monsterFeatures = this.actorItems.filter((item) => item.type === 'monsterFeature')
 			if (monsterFeatures.length === 0) return
 
 			const actionType = 'monsterFeature'
