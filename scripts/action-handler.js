@@ -21,6 +21,40 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		groupIds = null
 
 		/**
+		 * Get tooltip description from an item
+		 * @private
+		 * @param {object} item The item
+		 * @returns {string|null} HTML description for tooltip
+		 */
+		#getItemTooltip(item) {
+			const desc = item.system?.description?.public
+				?? item.system?.description?.value
+				?? item.system?.description
+			if (typeof desc === 'string' && desc.length > 0) return desc
+			return null
+		}
+
+		/**
+		 * Build an action object for an item
+		 * @private
+		 * @param {string} actionType The action type
+		 * @param {object} item       The item
+		 * @param {object} extra      Extra properties to merge
+		 * @returns {object} The action data
+		 */
+		#buildItemAction(actionType, item, extra = {}) {
+			const action = {
+				id: `${actionType}-${item.id}`,
+				name: item.name,
+				img: coreModule.api.Utils.getImage(item),
+				system: { actionType, actionId: item.id },
+				tooltip: this.#getItemTooltip(item),
+				...extra
+			}
+			return action
+		}
+
+		/**
 		 * Build system actions
 		 * Called by Token Action HUD Core
 		 * @override
@@ -233,23 +267,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 					}
 
 					const tierSpells = spells.filter((s) => (s.system?.tier ?? 0) === tier)
-					const actions = tierSpells.map((spell) => ({
-						id: `${actionType}-${spell.id}`,
-						name: spell.name,
-						img: coreModule.api.Utils.getImage(spell),
-						system: { actionType, actionId: spell.id }
-					}))
+					const actions = tierSpells.map((spell) => this.#buildItemAction(actionType, spell))
 
 					this.addGroup(tierGroupData, GROUP.spells)
 					this.addActions(actions, tierGroupData)
 				}
 			} else {
-				const actions = spells.map((spell) => ({
-					id: `${actionType}-${spell.id}`,
-					name: spell.name,
-					img: coreModule.api.Utils.getImage(spell),
-					system: { actionType, actionId: spell.id }
-				}))
+				const actions = spells.map((spell) => this.#buildItemAction(actionType, spell))
 				this.addActions(actions, GROUP.spells)
 			}
 		}
@@ -265,12 +289,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			if (spells.length === 0) return
 
 			const actionType = 'spell'
-			const actions = spells.map((spell) => ({
-				id: `${actionType}-${spell.id}`,
-				name: spell.name,
-				img: coreModule.api.Utils.getImage(spell),
-				system: { actionType, actionId: spell.id }
-			}))
+			const actions = spells.map((spell) => this.#buildItemAction(actionType, spell))
 			this.addActions(actions, GROUP.spells)
 		}
 
@@ -290,22 +309,17 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
 			const actionType = 'item'
 			const actions = objects.map((item) => {
-				const action = {
-					id: `${actionType}-${item.id}`,
-					name: item.name,
-					img: coreModule.api.Utils.getImage(item),
-					system: { actionType, actionId: item.id }
-				}
+				const extra = {}
 
 				if (this.showItemQuantity && item.system?.quantity > 1) {
-					action.info1 = { text: `${item.system.quantity}` }
+					extra.info1 = { text: `${item.system.quantity}` }
 				}
 
 				if (item.system?.equipped) {
-					action.cssClass = 'toggle active'
+					extra.cssClass = 'toggle active'
 				}
 
-				return action
+				return this.#buildItemAction(actionType, item, extra)
 			})
 
 			this.addActions(actions, GROUP.inventory)
@@ -323,12 +337,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			if (features.length === 0) return
 
 			const actionType = 'feature'
-			const actions = features.map((item) => ({
-				id: `${actionType}-${item.id}`,
-				name: item.name,
-				img: coreModule.api.Utils.getImage(item),
-				system: { actionType, actionId: item.id }
-			}))
+			const actions = features.map((item) => this.#buildItemAction(actionType, item))
 
 			this.addActions(actions, GROUP.features)
 		}
@@ -357,12 +366,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				}
 
 				const subtypeFeatures = monsterFeatures.filter((f) => (f.system?.subtype ?? 'feature') === subtype)
-				const actions = subtypeFeatures.map((item) => ({
-					id: `${actionType}-${item.id}`,
-					name: item.name,
-					img: coreModule.api.Utils.getImage(item),
-					system: { actionType, actionId: item.id }
-				}))
+				const actions = subtypeFeatures.map((item) => this.#buildItemAction(actionType, item))
 
 				this.addGroup(subtypeGroupData, GROUP.monsterFeatures)
 				this.addActions(actions, subtypeGroupData)

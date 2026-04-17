@@ -120,6 +120,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @param {string} actionId The item ID
 		 */
 		async #handleItemAction(event, actor, actionId) {
+			if (this.isRenderItem()) {
+				return this.renderItem(actor, actionId)
+			}
 			await actor.activateItem(actionId, { fastForward: event.shiftKey })
 		}
 
@@ -131,6 +134,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @param {string} actionId The item ID
 		 */
 		async #handleMonsterFeatureAction(event, actor, actionId) {
+			if (this.isRenderItem()) {
+				return this.renderItem(actor, actionId)
+			}
 			const hideFeatures = Utils.getSetting('hideMonsterFeatures')
 			await actor.activateItem(actionId, {
 				fastForward: event.shiftKey,
