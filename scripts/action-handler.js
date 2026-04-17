@@ -136,6 +136,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 */
 		async #buildNpcActions() {
 			await Promise.all([
+				this.#buildNpcAttacks(),
 				this.#buildMonsterFeatures(),
 				this.#buildNPCSpells(),
 				this.#buildAbilities(),
@@ -239,6 +240,44 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				const featureActions = damageFeatures.map((item) => this.#buildItemAction('feature', item))
 				this.addGroup(featureGroupData, GROUP.attacks)
 				this.addActions(featureActions, featureGroupData)
+			}
+		}
+
+		/**
+		 * Build NPC attacks from damage-dealing monster features and spells
+		 * @private
+		 */
+		async #buildNpcAttacks() {
+			if (!this.actorItems) return
+
+			// Damage-dealing monster features
+			const damageMonsterFeatures = this.actorItems.filter((item) =>
+				item.type === 'monsterFeature' && this.#hasDamageEffects(item)
+			)
+			if (damageMonsterFeatures.length > 0) {
+				const groupData = {
+					id: 'npcAttackFeatures',
+					name: coreModule.api.Utils.i18n('tokenActionHud.nimble.monsterAttacks'),
+					type: 'system-derived'
+				}
+				const actions = damageMonsterFeatures.map((item) => this.#buildItemAction('monsterFeature', item))
+				this.addGroup(groupData, GROUP.attacks)
+				this.addActions(actions, groupData)
+			}
+
+			// Damage-dealing NPC spells
+			const damageSpells = this.actorItems.filter((item) =>
+				item.type === 'spell' && this.#hasDamageEffects(item)
+			)
+			if (damageSpells.length > 0) {
+				const groupData = {
+					id: 'npcDamageSpells',
+					name: coreModule.api.Utils.i18n('tokenActionHud.nimble.damageSpells'),
+					type: 'system-derived'
+				}
+				const actions = damageSpells.map((item) => this.#buildItemAction('spell', item))
+				this.addGroup(groupData, GROUP.attacks)
+				this.addActions(actions, groupData)
 			}
 		}
 
