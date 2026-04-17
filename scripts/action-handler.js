@@ -202,19 +202,25 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				this.addActions(weaponActions, weaponGroupData)
 			}
 
-			// Damage-dealing spells
+			// Damage-dealing spells grouped by tier
 			const damageSpells = this.actorItems.filter((item) =>
 				item.type === 'spell' && this.#hasDamageEffects(item)
 			)
 			if (damageSpells.length > 0) {
-				const spellGroupData = {
-					id: 'damageSpells',
-					name: coreModule.api.Utils.i18n('tokenActionHud.nimble.damageSpells'),
-					type: 'system-derived'
+				const activeTiers = [...new Set(damageSpells.map((s) => s.system?.tier ?? 0))]
+				activeTiers.sort((a, b) => a - b)
+
+				for (const tier of activeTiers) {
+					const tierSpells = damageSpells.filter((s) => (s.system?.tier ?? 0) === tier)
+					const tierGroupData = {
+						id: `damageSpells-tier${tier}`,
+						name: coreModule.api.Utils.i18n(`NIMBLE.spells.tierHeadings.tier${tier}`),
+						type: 'system-derived'
+					}
+					const spellActions = tierSpells.map((item) => this.#buildItemAction('spell', item))
+					this.addGroup(tierGroupData, GROUP.attacks)
+					this.addActions(spellActions, tierGroupData)
 				}
-				const spellActions = damageSpells.map((item) => this.#buildItemAction('spell', item))
-				this.addGroup(spellGroupData, GROUP.attacks)
-				this.addActions(spellActions, spellGroupData)
 			}
 
 			// Damage-dealing features
