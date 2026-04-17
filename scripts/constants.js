@@ -36,6 +36,7 @@ export const ACTION_TYPE = {
  * Groups
  */
 export const GROUP = {
+	attacks: { id: 'attacks', name: 'tokenActionHud.nimble.attacks', type: 'system' },
 	abilities: { id: 'abilities', name: 'tokenActionHud.nimble.abilities', type: 'system' },
 	savingThrows: { id: 'savingThrows', name: 'tokenActionHud.nimble.savingThrows', type: 'system' },
 	skills: { id: 'skills', name: 'tokenActionHud.nimble.skills', type: 'system' },

@@ -116,6 +116,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 */
 		async #buildCharacterActions() {
 			await Promise.all([
+				this.#buildAttacks(),
 				this.#buildAbilities(),
 				this.#buildSavingThrows(),
 				this.#buildSkills(),
@@ -161,6 +162,76 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			return canvas.tokens.controlled
 				.filter((token) => knownActors.includes(token.actor?.type))
 				.map((token) => token.actor)
+		}
+
+		/**
+		 * Check if an item has damage effects in its activation
+		 * @private
+		 * @param {object} item The item
+		 * @returns {boolean}
+		 */
+		#hasDamageEffects(item) {
+			const effects = item.system?.activation?.effects
+			if (!effects || !Array.isArray(effects)) return false
+			return effects.some((e) => {
+				if (typeof e === 'string') return e.includes('type=damage')
+				if (typeof e === 'object' && e !== null) return e.type === 'damage'
+				return false
+			})
+		}
+
+		/**
+		 * Build attacks category with subcategories for weapons, damage spells, and damage features
+		 * @private
+		 */
+		async #buildAttacks() {
+			if (!this.actorItems) return
+
+			// Weapons
+			const weapons = this.actorItems.filter((item) =>
+				item.type === 'object' && item.system?.objectType === 'weapon' && item.system?.equipped !== false
+			)
+			if (weapons.length > 0) {
+				const weaponGroupData = {
+					id: 'weapons',
+					name: coreModule.api.Utils.i18n('tokenActionHud.nimble.weapons'),
+					type: 'system-derived'
+				}
+				const weaponActions = weapons.map((item) => this.#buildItemAction('item', item))
+				this.addGroup(weaponGroupData, GROUP.attacks)
+				this.addActions(weaponActions, weaponGroupData)
+			}
+
+			// Damage-dealing spells
+			const damageSpells = this.actorItems.filter((item) =>
+				item.type === 'spell' && this.#hasDamageEffects(item)
+			)
+			if (damageSpells.length > 0) {
+				const spellGroupData = {
+					id: 'damageSpells',
+					name: coreModule.api.Utils.i18n('tokenActionHud.nimble.damageSpells'),
+					type: 'system-derived'
+				}
+				const spellActions = damageSpells.map((item) => this.#buildItemAction('spell', item))
+				this.addGroup(spellGroupData, GROUP.attacks)
+				this.addActions(spellActions, spellGroupData)
+			}
+
+			// Damage-dealing features
+			const featureItemTypes = ['feature', 'ancestry', 'background', 'boon', 'class', 'subclass']
+			const damageFeatures = this.actorItems.filter((item) =>
+				featureItemTypes.includes(item.type) && this.#hasDamageEffects(item)
+			)
+			if (damageFeatures.length > 0) {
+				const featureGroupData = {
+					id: 'damageFeatures',
+					name: coreModule.api.Utils.i18n('tokenActionHud.nimble.damageFeatures'),
+					type: 'system-derived'
+				}
+				const featureActions = damageFeatures.map((item) => this.#buildItemAction('feature', item))
+				this.addGroup(featureGroupData, GROUP.attacks)
+				this.addActions(featureActions, featureGroupData)
+			}
 		}
 
 		/**

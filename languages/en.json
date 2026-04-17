@@ -1,4 +1,8 @@
 {
+	"tokenActionHud.nimble.attacks": "Attacks",
+	"tokenActionHud.nimble.weapons": "Weapons",
+	"tokenActionHud.nimble.damageSpells": "Damage Spells",
+	"tokenActionHud.nimble.damageFeatures": "Damage Features",
 	"tokenActionHud.nimble.abilities": "Abilities",
 	"tokenActionHud.nimble.abilityCheck": "Ability Check",
 	"tokenActionHud.nimble.savingThrows": "Saving Throws",

@@ -17,6 +17,14 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 	DEFAULTS = {
 		layout: [
 			{
+				nestId: 'attacks',
+				id: 'attacks',
+				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.attacks'),
+				groups: [
+					{ ...groups.attacks, nestId: 'attacks_attacks' }
+				]
+			},
+			{
 				nestId: 'abilities',
 				id: 'abilities',
 				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.abilities'),
