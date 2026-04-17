@@ -150,14 +150,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
 				const saveData = this.actor?.system?.savingThrows?.[key]
 				if (saveData) {
-					const rollMode = saveData.defaultRollMode ?? 0
-					let rollModeText = ''
-					if (rollMode > 0) rollModeText = '▲'
-					else if (rollMode < 0) rollModeText = '▼'
+					const mod = saveData.mod ?? 0
+					action.info1 = {
+						text: coreModule.api.Utils.getModifier(mod),
+						title: `${label}: ${coreModule.api.Utils.getModifier(mod)}`
+					}
 
-					if (rollModeText) {
-						action.info1 = {
-							text: rollModeText,
+					const rollMode = saveData.defaultRollMode ?? 0
+					if (rollMode !== 0) {
+						action.info2 = {
+							text: rollMode > 0 ? '▲' : '▼',
 							title: rollMode > 0
 								? coreModule.api.Utils.i18n('NIMBLE.abilityScoreTooltips.advantageOnSave')
 								: coreModule.api.Utils.i18n('NIMBLE.abilityScoreTooltips.disadvantageOnSave')
