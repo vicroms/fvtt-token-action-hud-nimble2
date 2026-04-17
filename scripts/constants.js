@@ -39,9 +39,9 @@ export const GROUP = {
 	abilities: { id: 'abilities', name: 'tokenActionHud.nimble.abilities', type: 'system' },
 	savingThrows: { id: 'savingThrows', name: 'tokenActionHud.nimble.savingThrows', type: 'system' },
 	skills: { id: 'skills', name: 'tokenActionHud.nimble.skills', type: 'system' },
-	spells: { id: 'spells', name: 'NIMBLE.sheet.spells', type: 'system' },
-	inventory: { id: 'inventory', name: 'NIMBLE.sheet.inventory', type: 'system' },
-	features: { id: 'features', name: 'NIMBLE.sheet.features', type: 'system' },
+	spells: { id: 'spells', name: 'tokenActionHud.nimble.spells', type: 'system' },
+	inventory: { id: 'inventory', name: 'tokenActionHud.nimble.inventory', type: 'system' },
+	features: { id: 'features', name: 'tokenActionHud.nimble.features', type: 'system' },
 	monsterFeatures: { id: 'monsterFeatures', name: 'tokenActionHud.nimble.monsterFeatures', type: 'system' },
 	utility: { id: 'utility', name: 'tokenActionHud.utility', type: 'system' }
 }

@@ -43,7 +43,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			{
 				nestId: 'spells',
 				id: 'spells',
-				name: coreModule.api.Utils.i18n('NIMBLE.sheet.spells'),
+				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.spells'),
 				groups: [
 					{ ...groups.spells, nestId: 'spells_spells' }
 				]
@@ -51,7 +51,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			{
 				nestId: 'inventory',
 				id: 'inventory',
-				name: coreModule.api.Utils.i18n('NIMBLE.sheet.inventory'),
+				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.inventory'),
 				groups: [
 					{ ...groups.inventory, nestId: 'inventory_inventory' }
 				]
@@ -59,7 +59,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			{
 				nestId: 'features',
 				id: 'features',
-				name: coreModule.api.Utils.i18n('NIMBLE.sheet.features'),
+				name: coreModule.api.Utils.i18n('tokenActionHud.nimble.features'),
 				groups: [
 					{ ...groups.features, nestId: 'features_features' }
 				]
