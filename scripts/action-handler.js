@@ -27,11 +27,33 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 		 * @returns {string|null} HTML description for tooltip
 		 */
 		#getItemTooltip(item) {
+			if (item.type === 'spell') {
+				return this.#getSpellTooltip(item)
+			}
 			const desc = item.system?.description?.public
 				?? item.system?.description?.value
 				?? item.system?.description
 			if (typeof desc === 'string' && desc.length > 0) return desc
 			return null
+		}
+
+		/**
+		 * Get tooltip for a spell from its composite description fields
+		 * @private
+		 * @param {object} spell The spell item
+		 * @returns {string|null} HTML description for tooltip
+		 */
+		#getSpellTooltip(spell) {
+			const desc = spell.system?.description
+			if (!desc) return null
+
+			const parts = []
+			if (desc.baseEffect) parts.push(desc.baseEffect)
+			if (desc.upcastEffect) parts.push(`<p><strong>${coreModule.api.Utils.i18n('tokenActionHud.nimble.upcastEffect')}:</strong> ${desc.upcastEffect}</p>`)
+			if (desc.higherLevelEffect) parts.push(`<p><strong>${coreModule.api.Utils.i18n('tokenActionHud.nimble.higherLevelEffect')}:</strong> ${desc.higherLevelEffect}</p>`)
+
+			const result = parts.join('')
+			return result.length > 0 ? result : null
 		}
 
 		/**

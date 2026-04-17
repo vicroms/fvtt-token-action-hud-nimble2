@@ -14,6 +14,8 @@
 	"tokenActionHud.nimble.initiative": "Initiative",
 	"tokenActionHud.nimble.inspiration": "Inspiration",
 	"tokenActionHud.nimble.mana": "Mana",
+	"tokenActionHud.nimble.upcastEffect": "Upcast",
+	"tokenActionHud.nimble.higherLevelEffect": "At Higher Levels",
 	"tokenActionHud.nimble.setting.hideMonsterFeatures.name": "Hide Monster Features from Players",
 	"tokenActionHud.nimble.setting.hideMonsterFeatures.hint": "If unchecked, monster features will be posted publicly to the chat when used from the HUD",
 	"tokenActionHud.nimble.setting.showSpellTiers.name": "Show Spell Tiers",
