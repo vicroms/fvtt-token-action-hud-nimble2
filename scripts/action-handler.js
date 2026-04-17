@@ -142,11 +142,30 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			const saveKeys = ['strength', 'dexterity', 'intelligence', 'will']
 			const actions = saveKeys.map((key) => {
 				const label = coreModule.api.Utils.i18n(`NIMBLE.savingThrows.${key}`)
-				return {
+				const action = {
 					id: `${actionType}-${key}`,
 					name: label,
 					system: { actionType, actionId: key }
 				}
+
+				const saveData = this.actor?.system?.savingThrows?.[key]
+				if (saveData) {
+					const rollMode = saveData.defaultRollMode ?? 0
+					let rollModeText = ''
+					if (rollMode > 0) rollModeText = '▲'
+					else if (rollMode < 0) rollModeText = '▼'
+
+					if (rollModeText) {
+						action.info1 = {
+							text: rollModeText,
+							title: rollMode > 0
+								? coreModule.api.Utils.i18n('NIMBLE.abilityScoreTooltips.advantageOnSave')
+								: coreModule.api.Utils.i18n('NIMBLE.abilityScoreTooltips.disadvantageOnSave')
+						}
+					}
+				}
+
+				return action
 			})
 
 			this.addActions(actions, GROUP.savingThrows)
