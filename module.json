@@ -56,8 +56,8 @@
     }
   },
   "socket": false,
-  "manifest": "https://github.com/vicroms/fvtt-token-action-hud-nimble2/releases/download/v0.1.0/module.json",
-  "download": "https://github.com/vicroms/fvtt-token-action-hud-nimble2/archive/refs/tags/v0.1.0.zip",
+  "manifest": "",
+  "download": "",
   "protected": false,
   "coreTranslation": false,
   "library": false
