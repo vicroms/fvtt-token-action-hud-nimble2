@@ -114,6 +114,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
 		/**
 		 * Handle item activation (spells, objects, features)
+		 * Uses game.nimble.macros.activateItemMacro for combat integration
 		 * @private
 		 * @param {object} event    The event
 		 * @param {object} actor    The actor
@@ -123,7 +124,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			if (this.isRenderItem()) {
 				return this.renderItem(actor, actionId)
 			}
-			await actor.activateItem(actionId, { fastForward: event.shiftKey })
+			const itemName = this.action.system.itemName
+			if (itemName && game.nimble?.macros?.activateItemMacro) {
+				await game.nimble.macros.activateItemMacro(itemName)
+			} else {
+				await actor.activateItem(actionId, { fastForward: event.shiftKey })
+			}
 		}
 
 		/**
@@ -137,36 +143,41 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 			if (this.isRenderItem()) {
 				return this.renderItem(actor, actionId)
 			}
-			const hideFeatures = Utils.getSetting('hideMonsterFeatures')
-			await actor.activateItem(actionId, {
-				fastForward: event.shiftKey,
-				visibilityMode: hideFeatures ? 'selfroll' : undefined
-			})
+			const itemName = this.action.system.itemName
+			if (itemName && game.nimble?.macros?.activateItemMacro) {
+				await game.nimble.macros.activateItemMacro(itemName)
+			} else {
+				const hideFeatures = Utils.getSetting('hideMonsterFeatures')
+				await actor.activateItem(actionId, {
+					fastForward: event.shiftKey,
+					visibilityMode: hideFeatures ? 'selfroll' : undefined
+				})
+			}
 		}
 
 		/**
 		 * Handle heroic action
+		 * Uses game.nimble.macros.activateHeroicActionMacro for combat integration
 		 * @private
 		 * @param {object} actor    The actor
 		 * @param {string} actionId The heroic action ID (attack, castSpell, move, assess)
 		 */
 		async #handleHeroicAction(actor, actionId) {
-			const macro = CONFIG.NIMBLE?.macros?.activateHeroicActionMacro
-			if (typeof macro === 'function') {
-				await macro(actionId, 'action')
+			if (game.nimble?.macros?.activateHeroicActionMacro) {
+				await game.nimble.macros.activateHeroicActionMacro(actionId, 'action')
 			}
 		}
 
 		/**
 		 * Handle heroic reaction
+		 * Uses game.nimble.macros.activateHeroicActionMacro for combat integration
 		 * @private
 		 * @param {object} actor    The actor
 		 * @param {string} actionId The heroic reaction ID (defend, interpose, opportunityAttack, help)
 		 */
 		async #handleHeroicReaction(actor, actionId) {
-			const macro = CONFIG.NIMBLE?.macros?.activateHeroicActionMacro
-			if (typeof macro === 'function') {
-				await macro(actionId, 'reaction')
+			if (game.nimble?.macros?.activateHeroicActionMacro) {
+				await game.nimble.macros.activateHeroicActionMacro(actionId, 'reaction')
 			}
 		}
 
