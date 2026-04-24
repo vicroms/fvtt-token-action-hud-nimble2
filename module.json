@@ -10,7 +10,7 @@
   ],
   "url": "https://github.com/vicroms/fvtt-token-action-hud-nimble2",
   "flags": {},
-  "version": "0.2.0",
+  "version": "0.2.1",
   "compatibility": {
     "minimum": "13",
     "verified": "13"

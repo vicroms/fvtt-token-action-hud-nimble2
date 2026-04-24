@@ -1,6 +1,6 @@
 {
   "name": "fvtt-token-action-hud-nimble2",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Token Action HUD system module for the Nimble RPG system",
   "type": "module",
   "scripts": {
