@@ -69,7 +69,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 				id: `${actionType}-${item.id}`,
 				name: item.name,
 				img: coreModule.api.Utils.getImage(item),
-				system: { actionType, actionId: item.id },
+				system: { actionType, actionId: item.id, itemName: item.name },
 				tooltip: this.#getItemTooltip(item),
 				...extra
 			}
